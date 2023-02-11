@@ -1,0 +1,2 @@
+Target Painter Dummy adds a dummy npc to test your ModProjectile Colliding methods on
+use /cleartarget to reset the dummy

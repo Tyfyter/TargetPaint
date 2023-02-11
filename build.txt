@@ -1,0 +1,10 @@
+displayName = Hitbox Viewer and Target Painter Dummy
+
+author = Tyfyter2002
+
+version = 0.1
+
+homepage = https://tyfyter.github.io/
+includeSource = true
+hideCode = false
+hideResources = false

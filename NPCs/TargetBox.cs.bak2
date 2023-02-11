@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace TargetPaint.NPCs {
+    public class TargetBox : ModNPC {
+        public override string Texture => "TargetPaint/NPCs/Pixel";
+        public static seventy_two_bytes data = new seventy_two_bytes();
+        public override void SetDefaults() {
+            NPC.life = 9999;
+            NPC.lifeMax = 9999;
+            NPC.defense = 9999;
+            NPC.width = 96;
+            NPC.height = 96;
+            data[38] = true;
+        }
+        /*public override bool? CanBeHitByProjectile(Projectile projectile) {
+            if(/*!projectile.Hitbox.Intersects(npc.Hitbox) || * /projectile.modProjectile == null) return false;
+            ModProjectile modProjectile = projectile.modProjectile;
+            Rectangle projHitbox = projectile.Hitbox;
+            int x = (int)npc.position.X;
+            int y = (int)npc.position.Y;
+            for(int i = 0; ++i<576;) {
+                //data[i] = modProjectile.Colliding(projHitbox, new Rectangle(x+(i%24)*4,y+(i/24)*4,4,4))??false;
+                if(modProjectile.Colliding(projHitbox, new Rectangle(x+(i%24)*4, y+(i/24)*4, 4, 4))==true)data[i] = true;
+            }
+            return true;
+        }*/
+        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+            knockback = 0;
+            damage = 0;
+            projectile.localNPCImmunity[NPC.whoAmI] = 0;
+            for(int i = 0;  ++i<NPC.immune.Length;) {
+                NPC.immune[i] = 0;
+            }
+            if(/*!projectile.Hitbox.Intersects(npc.Hitbox) || */projectile.ModProjectile == null) return;
+            ModProjectile modProjectile = projectile.ModProjectile;
+            Rectangle projHitbox = projectile.Hitbox;
+            int x = (int)NPC.position.X;
+            int y = (int)NPC.position.Y;
+            for(int i = 0; ++i<576;) {
+                //data[i] = modProjectile.Colliding(projHitbox, new Rectangle(x+(i%24)*4,y+(i/24)*4,4,4))??false;
+                if(modProjectile.Colliding(projHitbox, new Rectangle(x+(i%24)*4, y+(i/24)*4, 4, 4))??false)data[i] = true;
+            }
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor) {
+            NPC.life = 9999;
+            int x = (int)(NPC.position.X-Main.screenPosition.X);
+            int y = (int)(NPC.position.Y-Main.screenPosition.Y);
+            Texture2D texture = Mod.GetTexture("NPCs/Pixel");
+            for(int i = 0; ++i<576;) {
+                spriteBatch.Draw(texture, new Rectangle(x+(i%24)*4,y+(i/24)*4,4,4), null, data[i]?Color.Red:Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+            }
+            return false;
+        }
+    }
+    public class ClearCommand : ModCommand {
+		public override CommandType Type {
+			get { return CommandType.Chat; }
+		}
+
+		public override string Command {
+			get { return "cleartarget"; }
+		}
+
+		public override string Usage {
+			get { return "/cleartarget"; }
+		}
+
+		public override string Description {
+			get { return "clears the paintable target"; }
+		}
+
+		public override void Action(CommandCaller player, string input, string[] args) {
+            TargetBox.data = new seventy_two_bytes();
+		}
+	}
+    public class seventy_two_bytes {
+        byte[] bytes = new byte[72];
+        public bool this[int index]{
+            get {
+                return ((bytes[index/8])&(1<<index%8))!=0;
+            }
+            set {
+                //if(value) {
+                (bytes[index/8])|=(byte)((value?1:0)<<index%8);
+                    //(bytes[index/8])|=(byte)(Convert.ToByte(value)<<index%8);
+                //} else {
+                    //(bytes[index/8])&=(byte)~(byte)(1<<index%8);
+                //}
+            }
+        }
+    }
+}
