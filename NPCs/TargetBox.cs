@@ -40,9 +40,9 @@ namespace TargetPaint.NPCs {
 			Main.LocalPlayer.SetTalkNPC(-1);
 			return "reset target";
 		}
-		public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-			knockback = 0;
-			damage = 0;
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) {
+			modifiers.Knockback *= 0;
+			modifiers.FinalDamage *= 0;
 			Rectangle projHitbox = projectile.Hitbox;
 			int x = (int)NPC.position.X;
 			int y = (int)NPC.position.Y;
@@ -54,7 +54,7 @@ namespace TargetPaint.NPCs {
 				projectile.penetrate++;
 			}
 		}
-		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit) {
+		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone) {
 			projectile.localNPCImmunity[NPC.whoAmI] = 0;
 			for (int i = 0; ++i < NPC.immune.Length;) {
 				NPC.immune[i] = 0;

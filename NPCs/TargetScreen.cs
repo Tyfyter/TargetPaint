@@ -15,7 +15,7 @@ namespace TargetPaint.NPCs {
 	public class TargetScreen : ModNPC {
 		public override string Texture => "TargetPaint/NPCs/Pixel";
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Fullscreen Hitbox Viewer");
+			// DisplayName.SetDefault("Fullscreen Hitbox Viewer");
 		}
 		internal static bool[,] data;
 		public override void SetDefaults() {
