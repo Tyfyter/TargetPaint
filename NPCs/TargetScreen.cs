@@ -27,6 +27,15 @@ namespace TargetPaint.NPCs {
 			NPC.chaseable = false;
 			data = new bool[Main.screenWidth / 4, Main.screenHeight / 4];
 		}
+		public override bool? CanBeHitByProjectile(Projectile projectile) {
+			return false;
+		}
+		public override bool CanChat() => true;
+		public override string GetChat() {
+			NPC.life = 0;
+			NPC.checkDead();
+			return "";
+		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
 			Texture2D tex = TextureAssets.Npc[Type].Value;
 			spriteBatch.Draw(tex, NPC.position - Main.screenPosition, null, Color.White, 0, Vector2.Zero, 96, 0, 0);
