@@ -1,0 +1,4 @@
+NPCs: {
+	TargetBox.DisplayName: Target Box
+	TargetScreen.DisplayName: Target Screen
+}

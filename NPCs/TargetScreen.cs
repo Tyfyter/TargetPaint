@@ -17,6 +17,7 @@ namespace TargetPaint.NPCs {
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Fullscreen Hitbox Viewer");
 		}
+		const int precision = 4;
 		internal static bool[,] data;
 		public override void SetDefaults() {
 			NPC.life = 99;
@@ -25,7 +26,7 @@ namespace TargetPaint.NPCs {
 			NPC.width = 96;
 			NPC.height = 96;
 			NPC.chaseable = false;
-			data = new bool[Main.screenWidth / 4, Main.screenHeight / 4];
+			data = new bool[Main.screenWidth / precision, Main.screenHeight / precision];
 		}
 		public override bool? CanBeHitByProjectile(Projectile projectile) {
 			return false;
@@ -37,10 +38,9 @@ namespace TargetPaint.NPCs {
 			return "";
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
-			Texture2D tex = TextureAssets.Npc[Type].Value;
+			Texture2D tex = TargetPaint.pixel;
 			spriteBatch.Draw(tex, NPC.position - Main.screenPosition, null, Color.White, 0, Vector2.Zero, 96, 0, 0);
 			if (screenPos != Main.screenPosition) return false;
-			const int precision = 4;
 			const int fluff = 32;
 			const int fluffRatio = fluff / precision;
 			Projectile proj;
@@ -79,8 +79,8 @@ namespace TargetPaint.NPCs {
 				}
 			}
 			Color color = Color.Red * 0.6f;
-			for (int y = 0; y < Main.screenHeight / precision; y++) {
-				for (int x = 0; x < Main.screenWidth / precision; x++) {
+			for (int y = 0; y < data.GetLength(1); y++) {
+				for (int x = 0; x < data.GetLength(0); x++) {
 					if (data[x, y]) {
 						spriteBatch.Draw(tex,
 							new Rectangle(x * precision, y * precision, precision, precision),
