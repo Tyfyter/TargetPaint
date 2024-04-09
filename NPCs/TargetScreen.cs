@@ -59,8 +59,10 @@ namespace TargetPaint.NPCs {
 										screenPoint.Y + baseY * fluff, fluff, fluff)
 									)) {
 									for (int y = 0; y < fluffRatio; y++) {
+										if (baseY * fluffRatio + y >= data.GetLength(1)) break;
 										for (int x = 0; x < fluffRatio; x++) {
-											if (!data[x, y]) {
+											if (baseX * fluffRatio + x >= data.GetLength(0)) break;
+											if (!data[baseX * fluffRatio + x, baseY * fluffRatio + y]) {
 												if (proj.Colliding(
 													proj.Hitbox,
 													new Rectangle(
