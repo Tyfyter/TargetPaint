@@ -10,12 +10,13 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Graphics.Effects;
 
 namespace TargetPaint.NPCs {
 	public class TargetScreen : ModNPC {
 		public override string Texture => "TargetPaint/NPCs/Pixel";
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Fullscreen Hitbox Viewer");
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = new() { Hide = true };
 		}
 		const int precision = 4;
 		internal static bool[,] data;

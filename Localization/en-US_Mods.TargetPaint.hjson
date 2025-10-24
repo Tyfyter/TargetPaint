@@ -2,3 +2,34 @@ NPCs: {
 	TargetBox.DisplayName: Target Box
 	TargetScreen.DisplayName: Target Screen
 }
+
+BuilderToggle: Hitboxes: {0}
+BuilderToggle0: Hidden
+BuilderToggle1: Current
+BuilderToggle2: Fading
+
+Configs: {
+	PaintConfig: {
+		DisplayName: Paint Config
+
+		Precision: {
+			Label: Precision
+			Tooltip: ""
+		}
+
+		FadeSpeed: {
+			Label: Fade Speed
+			Tooltip: ""
+		}
+
+		HideToggle: {
+			Label: Hide Toggle
+			Tooltip: ""
+		}
+
+		PerfectTemporalPrecision: {
+			Label: Sub-Tick Temporal Precision
+			Tooltip: With this disabled, hitboxes will only be checked once per tick instead of every time a projectile attempts to deal damage
+		}
+	}
+}

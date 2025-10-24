@@ -1,18 +1,22 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 
 namespace TargetPaint.NPCs {
 	public class TargetBox : ModNPC {
 		public override string Texture => "TargetPaint/NPCs/Pixel";
 		internal static two_eighty_eight_bytes data = new two_eighty_eight_bytes();
+		public override void SetStaticDefaults() {
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = new() { Hide = true };
+		}
 		public override void SetDefaults() {
 			NPC.life = 9999;
 			NPC.lifeMax = 9999;
